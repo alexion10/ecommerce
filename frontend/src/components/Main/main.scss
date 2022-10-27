@@ -1,0 +1,60 @@
+@import '../Styles/variables';
+.navbar {
+	width: 100%;
+	background-color: $input-color;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding: 10px 0;
+
+	a{
+		text-decoration: none;	
+	}
+}
+
+.navbar div{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap-reverse;
+	svg{
+		font-size: 30px;
+		margin:0 15px;
+		color: white;
+	}
+	
+}
+
+.navbar h1 {
+	color: white;
+	font-size: 25px;
+	margin-left: 20px;
+}
+
+.nav-icons div:nth-child(1){
+	margin-right: 5px;
+}
+
+.white_btn {
+	border: none;
+	outline: none;
+	padding: 12px 0;
+	background-color: white;
+	border-radius: 20px;
+	width: 120px;
+	font-weight: bold;
+	font-size: 14px;
+	cursor: pointer;
+	margin-right: 20px;
+}
+
+@media screen and (max-width:510px) {
+	.navbar {
+		justify-content: center;
+	}
+
+	.white_btn{
+		margin: 20px 0;
+	}
+}

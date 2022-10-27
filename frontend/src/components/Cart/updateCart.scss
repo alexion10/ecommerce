@@ -1,0 +1,11 @@
+@import '../Styles/variables';
+
+.product-cart{
+    font-size: 35px;
+    cursor: pointer;
+    color: $input-color;
+    transition: .1s ease-in-out;
+    &:active{
+        transform: scale(.8);
+    }
+}

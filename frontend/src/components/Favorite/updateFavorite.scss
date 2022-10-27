@@ -1,0 +1,13 @@
+.product-favorite{
+    font-size: 30px;
+    cursor: pointer;
+    color: black;
+    &:hover{
+        color: lightsalmon;
+    }
+}
+
+.marked{
+    color:    red;
+}
+

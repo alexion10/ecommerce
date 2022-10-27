@@ -1,0 +1,120 @@
+@import '../Styles/variables';
+
+.cart-dashboard{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .cart-list{
+        flex:2;
+    }
+    .purchase-details{
+        flex:1;
+    }
+}
+
+.cart-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 30px;
+}
+
+.cart-item{
+    display: flex;
+    justify-content: center;  
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 2px solid $input-color;
+}
+
+.cart-details{
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    margin: 0 30px;
+    h5{
+        margin:0;
+        font-size: 2em;
+    }
+    p{
+        font-size: 1.5em;
+        font-weight: 500;
+    }
+
+    .cart-quantity-control{
+        font-size: 1.7em;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        svg{
+            transition: .1s ease-in-out;
+            cursor: pointer;
+            &:active{
+                transform: scale(.8);
+            }
+        }
+        svg:nth-child(1){
+            margin-right: 20px;
+        }
+        svg:nth-child(2){
+            margin-left: 20px;
+        }
+        p{
+            padding:0;
+            margin:0;
+        }
+    }
+}
+
+.purchase-details{
+    // background-color: lightgrey;
+    margin: 0 30px;
+    padding: 0 20px;
+    p{
+        font-size: 2em;
+        font-weight: 500;
+    }
+    button{
+        font-size: 1.5em;
+        font-weight: 500;
+        width: 100%;
+        background: $input-color;
+        border:none;
+        padding: 20px 20px;
+        border-radius: 20px;
+        color:white;
+        transition: .1s ease-in-out;
+        cursor: pointer;
+        &:active{
+            transform: scale(.8);
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .cart-details{
+        flex-wrap: wrap-reverse;
+    }
+}
+
+@media screen and (max-width: 600px){
+
+    .cart-details{
+        // flex-direction: ;
+        flex-wrap: reverse-wrap;
+        // flex-direction: column-reverse;
+        margin:0;
+        margin-top:30px;
+
+    }
+    .cart-image{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .cart-item{
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}

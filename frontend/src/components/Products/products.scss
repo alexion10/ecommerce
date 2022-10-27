@@ -1,0 +1,229 @@
+@import '../Styles/variables.scss';
+
+.add-products form{
+    display: flex;
+    flex-direction: column;  
+    justify-content: center; 
+    align-items: center;
+
+    * {
+        width: 70%;
+        padding: 15px;
+        margin: 0.5em auto;
+        border-radius: 10px;
+        font-size: 0.9em;
+        font-weight: 500;
+        border: 1px solid $input-color;
+        background-color: $input-color;
+        color:white;
+
+        &::placeholder{
+            color:white;
+            font-weight: 500;
+        }
+
+        
+    }
+
+    button{
+        padding: 15px 0;
+        width: 35%;
+        background-color: $button-color;
+        cursor: pointer;
+        border: none;
+        color: white;
+        font-size: 1em;
+        border-radius: 10px;
+
+        &:hover{
+            background-color: lighten($button-color, 10%);
+        }
+    }
+
+}
+
+.add-products {
+    h5{
+        color: white;
+        font-size: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .control-details{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        button{
+            margin-right: 20px;
+            font-size: 17px;
+            background: $button-color;
+            border:none;
+            color: white;
+            padding: 10px 15px;
+            font-weight: 500;
+            border-radius: 10px;
+        }
+    }
+    .control-details-current{
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+
+    
+}
+
+.product-list{
+    
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(320px, 2fr));
+    align-items: center;
+
+    .product-item{
+        position: relative;
+        margin:0 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        *{
+            margin:5px 0;
+        }
+        button{
+            margin-bottom: 20px;
+        }
+        img{
+            // width:100%;
+        }
+    }
+
+    .product-details{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        max-width: 300px;
+        width: 100%;
+      }
+
+    .product-favorite-action{
+        position: absolute;
+        top:0;
+    }
+
+    .product-action{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.loader{
+    animation: animate 1.5s linear infinite;
+  clip: rect(0, 80px, 80px, 40px); 
+  height: 80px;
+  width: 80px;
+  position: absolute;
+  left: calc(50% - 40px);
+  top: calc(50% - 40px);
+  &:after{
+    animation: animate2 1.5s ease-in-out infinite;
+    clip: rect(0, 80px, 80px, 40px);
+    content:'';
+    border-radius: 50%; 
+    height: 80px;
+    width: 80px;
+    position: absolute; 
+  }
+}
+
+.filter-area{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    select {
+        max-width: 100px;
+        width: 100%;
+        margin: 10px 15px;
+    }
+}
+
+@keyframes animate {
+    0% { 
+      transform: rotate(0deg)
+    }
+    100% { 
+      transform: rotate(220deg)
+    }
+  }
+
+@keyframes animate2 {
+0% {
+    box-shadow: inset $button-color 0 0 0 17px;
+    transform: rotate(-140deg);
+}
+50% {
+    box-shadow: inset $button-color 0 0 0 2px;
+}
+100% {
+    box-shadow: inset $button-color 0 0 0 17px;
+    transform: rotate(140deg);
+}
+}
+
+.error-msg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    *{
+        margin:0 25px;
+    }
+    p{
+        font-size: 25px;
+    }
+}
+
+.admin-area{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .add-products{
+        flex: 1;
+        background: gray;
+    }
+    .test{
+        flex: 2;
+        h5{ 
+            margin-left: 20px;
+            font-size: 20px;
+        }
+    }
+}
+
+@media screen and (max-width:850px) and (min-width: 480px) {
+    .add-products .control-details{
+        justify-content: center;
+        flex-direction: column;
+        button{
+            margin:0;
+        }
+    }
+}
+
+
+@media screen and (max-width:300px) {
+    .product-list{
+        grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+        img{
+            max-width:200px;
+        }
+    }
+}
+
+
+
+
+
+
