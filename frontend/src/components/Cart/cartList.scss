@@ -101,16 +101,18 @@
 @media screen and (max-width: 600px){
 
     .cart-details{
-        // flex-direction: ;
         flex-wrap: reverse-wrap;
-        // flex-direction: column-reverse;
         margin:0;
         margin-top:30px;
+        
 
     }
     .cart-image{
         display: flex;
         justify-content: center;
+        img{
+            width: 100%;
+        }
     }
     
     .cart-item{
@@ -118,3 +120,4 @@
         justify-content: flex-start;
     }
 }
+

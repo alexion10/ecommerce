@@ -39,8 +39,8 @@ export const ProductList = () => {
     const [sortOrder, setSortOrder] = useState('desc');
     const [sortByCategory, setSortCategory] = useState('date');
     const [productType, setProductType] = useState('all');
-    const userRole = useSelector(state=> state.user.userInfo.role)
-    const hideFromCustomer = (userRole === ('editor' || 'admin')) ? true : false;
+    const userRole = JSON.parse(localStorage.getItem('userInfo'))
+    const hideFromCustomer = ((userRole.role === 'editor') || (userRole.role === 'admin')) ? true : false;
     const {
         data,
         error,
@@ -62,8 +62,8 @@ export const ProductList = () => {
     }
 
     return (
-        <div>
-            <h5>Item List</h5>
+        <div className="products-area">
+            <h5 className="product-area-title">Product List...</h5>
 
             {
             isLoading && (

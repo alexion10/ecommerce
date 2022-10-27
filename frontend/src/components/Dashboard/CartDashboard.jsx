@@ -70,8 +70,6 @@ const FavoriteDashboard = () => {
                                             image={'./placeholder.jpg'}
                                             price={item.productPrice}
                                         />
-                                        <p>Total unit price:</p>
-                                        <p>{item.quantity * item.productPrice}</p>
                                     </div>
                                 </div>
                             </div>

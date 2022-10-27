@@ -51,7 +51,7 @@ export const AddtoDatabase = () => {
     }
 
     return (
-        <div className="add-products">
+        <div className="add-product">
             {
             handleUpdateUI && (
                 <div className="control-details">
