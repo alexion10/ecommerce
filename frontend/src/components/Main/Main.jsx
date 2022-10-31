@@ -5,11 +5,13 @@ import {FavoriteNumber} from "../Favorite/favoriteNumber";
 import { CartNumber } from "../Cart/cartNumber";
 import "./main.scss";
 
-
 export const Navbar = () => {
+    //get user info
     const userRole = JSON.parse(localStorage.getItem('userInfo'));
+    //user role
     const generateUIByRole = ((userRole.role === 'editor') || (userRole.role === 'admin')) ? true : false;
-    console.log(generateUIByRole)
+
+    //remove information user from local storage
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("userInfo");
@@ -45,15 +47,15 @@ export const Navbar = () => {
 const Main = () => {
     const userRole = JSON.parse(localStorage.getItem('userInfo'));
     const generateUIByRole = ((userRole.role === 'editor') || (userRole.role === 'admin')) ? true : false;
-    // console.log(generateUIByRole)
     return (
         <div className="main_container">
-            <Navbar/> {
-            generateUIByRole && (
+            <Navbar/> 
+            {/* generate for admin/editor */}
+            {generateUIByRole && (
                 <AddProduct/>)
-        }
-            {
-            !generateUIByRole && (
+            }
+            {/* generate for customers */}
+            {!generateUIByRole && (
                 <CustomerDashboard/>)
         } </div>
     );

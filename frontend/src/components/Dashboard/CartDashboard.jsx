@@ -5,10 +5,12 @@ import {Navbar} from "../Main/Main";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import '../Cart/cartList.scss';
 
-const FavoriteDashboard = () => {
+const CartDashboard = () => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const {data, error, isSuccess, isLoading} = useCartQuery(userInfo.email);
+    //update user cart list
     const [updateCartList] = useUpdateCartListMutation();
+    //product details and type of action "add/remove"
     const updateCart = (email,productCode, productName, productPrice, image, rating, action) => {
         const obj = {
             product: {
@@ -29,21 +31,19 @@ const FavoriteDashboard = () => {
 
             <div className="hover-list">
                 <h5>Cart list...</h5>
-                {
-                isLoading && (
+                {/* loader */}
+                {isLoading && (
                     <div className="loader"></div>
-                )
-            }
-                {
-                error && (
+                )}
+                {/* display error message */}
+                {error && (
                     <div className="error-msg">
                         <img src="error.png" alt="error msg" width="15px"/>
                         <p>We experienced some problems please come back later!</p>
                     </div>
-                )
-            }
-                {
-                isSuccess && (
+                )}
+                {/* display cart dashboard */}
+                {isSuccess && (
                 <div className="cart-dashboard">    
                     <div className="cart-list">
                         {
@@ -58,8 +58,10 @@ const FavoriteDashboard = () => {
                                         <p>{item.productPrice} RON</p>
                                         <p>Quantity:</p>
                                         <div className="cart-quantity-control">
+                                            {/* Remove item*/}
                                             <AiOutlineArrowLeft onClick={()=>{updateCartList(updateCart(userInfo.email, item.productCode, item.productName, item.productPrice, item.image, item.rating, 'remove'))}}/>
                                                 {item.quantity}
+                                            {/* Add item*/}
                                             <AiOutlineArrowRight onClick={()=>{updateCartList(updateCart(userInfo.email, item.productCode, item.productName, item.productPrice, item.image, item.rating, 'add'))}}/>    
                                         </div>
                                     </div>
@@ -91,4 +93,4 @@ const FavoriteDashboard = () => {
     );
 }
 
-export default FavoriteDashboard;
+export default CartDashboard;

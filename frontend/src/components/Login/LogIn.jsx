@@ -7,25 +7,28 @@ const Login = () => {
 	const [logInData, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
 	const [logIn]  = useLogInMutation();
+
+	//get input values
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...logInData, [input.name]: input.value });
 	};
 
+	//submit data to database
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
+			//get user data from db
 			const userData = await logIn(logInData);
+			//save token and userInfo to localStorage
 			localStorage.setItem("token", userData.data.token);
 			localStorage.setItem('userInfo', JSON.stringify(userData.data.infoUser))
+			
+			//reload to main dashboard
 			window.location = '/' 
 		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
+			//set error and show error to console
+			setError(error);			
+			console.log(error)
 		}
 	};
 

@@ -3,7 +3,6 @@ import { UpateUserRole } from "../User/updateUserRole";
 import { AddtoDatabase } from "../Products/addToDatabase";
 import { ProductList } from "../Products/productList";
 
-
 const EditDashboard = () => {
     const userDetails = JSON.parse(localStorage.getItem('userInfo'));
     const userRole = userDetails.role;
@@ -11,6 +10,7 @@ const EditDashboard = () => {
         <div className="admin-area">
             <div className="add-products">
                 <AddtoDatabase/>
+                {/* update userRole  only available for admin users*/}
                 {userRole === 'admin' && <UpateUserRole />}
             </div>
             <ProductList/>

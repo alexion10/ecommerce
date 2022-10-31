@@ -214,6 +214,9 @@
 
 
 @media screen and (max-width:300px) {
+    .add-products .control-details{
+        justify-content: center;
+    }
     .product-list{
         grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
         img{

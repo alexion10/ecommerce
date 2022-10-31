@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useUpdateUserRoleMutation } from "../../store/api";
 
+
+// update user role to customer, editor or admin
+// only available for admin role users
 export const UpateUserRole = () => {
     const [values, setValues] = useState({email: "", role:""})
     const [updateUserRole] = useUpdateUserRoleMutation();
@@ -9,6 +12,8 @@ export const UpateUserRole = () => {
         await updateUserRole({email: values.email, role: {role: values.role}})
         
     }
+
+    //get values from inputs
     const handleChange = ({ currentTarget: input }) => {
 		setValues({ ...values, [input.name]: input.value });
 	};

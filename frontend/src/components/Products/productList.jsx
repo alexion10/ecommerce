@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useUsersQuery } from "../../store/api";
 import { Product } from "./product";
 
 
+//filter options 
 const sortItems = (array, category, order, typeOfProduct) => {
     if(typeOfProduct !== 'all'){
         array = array.filter(i=> i.typeOfProduct === typeOfProduct);
@@ -39,7 +39,11 @@ export const ProductList = () => {
     const [sortOrder, setSortOrder] = useState('desc');
     const [sortByCategory, setSortCategory] = useState('date');
     const [productType, setProductType] = useState('all');
+    
+    //get userRole from localStorage
     const userRole = JSON.parse(localStorage.getItem('userInfo'))
+    
+    //show only for editor and admin users
     const hideFromCustomer = ((userRole.role === 'editor') || (userRole.role === 'admin')) ? true : false;
     const {
         data,
@@ -49,6 +53,7 @@ export const ProductList = () => {
         isSuccess
     } = useUsersQuery();
 
+    //get values from inputs
     const handleChangeCategory = (e) => {
         setSortCategory(e.target.value);
     }
@@ -64,7 +69,7 @@ export const ProductList = () => {
     return (
         <div className="products-area">
             <h5 className="product-area-title">Product List...</h5>
-
+            {/*loader and msg will be activ as application is loading data*/}
             {
             isLoading && (
                 <>
@@ -73,6 +78,7 @@ export const ProductList = () => {
                 </>
             )
         }
+        {/*loader and msg will be activ as application is fetching data*/}
             {
             isFetching && (
                 <>
@@ -81,6 +87,7 @@ export const ProductList = () => {
                 </>
             )
         }
+        {/* error mesaj will be given when we have a error*/}
             {
             error && (
                 <div className="error-msg">
@@ -89,6 +96,7 @@ export const ProductList = () => {
                 </div>
             )
         }
+        {/* product list */}
             {
             isSuccess && (
                 <div>
@@ -112,30 +120,16 @@ export const ProductList = () => {
                     </div>
                 <div className="product-list">
                     {
-                    sortItems( [...data], sortByCategory, sortOrder, productType ).map((product, index) => {
+                    sortItems( [...data], sortByCategory, sortOrder, productType ).map((product) => {
                         return (
-                            <Product key={
-                                    product._id
-                                }
-                                index={
-                                    index + 1
-                                }
-                                id={
-                                    product._id
-                                }
-                                productName={
-                                    product.productName
-                                }
-                                productPrice={
-                                    product.productPrice
-                                }
-                                rating={
-                                    product.rating
-                                }
-                                productCode={
-                                    product.productCode
-                                }
-                                hideFromCustomer={hideFromCustomer}/>
+                            <Product key={product._id}
+                                id={product._id}
+                                productName={product.productName}
+                                productPrice={product.productPrice}
+                                rating={product.rating}
+                                productCode={product.productCode}
+                                hideFromCustomer={hideFromCustomer}
+                            />
                         )
                     })
                 } </div></div>

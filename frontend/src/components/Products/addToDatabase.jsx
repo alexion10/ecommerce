@@ -3,7 +3,7 @@ import "./products.scss";
 import { useAddProductsMutation, useUpdateProductsMutation} from "../../store/api";
 import {CgArrowLongDown} from "react-icons/cg";
 
-
+//add products to database
 export const AddtoDatabase = () => {
     const [addProducts] = useAddProductsMutation();
     const [updateProducts] = useUpdateProductsMutation();
@@ -11,20 +11,20 @@ export const AddtoDatabase = () => {
     const [getError, setError] = useState('');
     const [handleUpdateUI, setHandleUpdateUI] = useState(true);
 
+    //get values from input
     const handleChange = ({currentTarget: input}) => {
-        setAddProduct({
-            ...product,
-            [input.name]: input.value
-        });
+        setAddProduct({...product, [input.name]: input.value });
     };
 
     const handleSubmitAdd = async (e) => {
         e.preventDefault();
         try {
+            //handle update and add product options 
             if(handleUpdateUI){
+                //add product to database
                 addProducts(product)
-                setAddProduct({productName: "", typeOfProduct: "", productPrice: '', productCode: ""})
             }else{
+                //update product
                 const validateProductUpdate = () =>{
                     let prod = {};
                     if(product.productName.length>0)
@@ -39,19 +39,19 @@ export const AddtoDatabase = () => {
             }   
             setAddProduct({productName: "", typeOfProduct: "", productPrice: '', productCode: ""})
         } catch (error) {
-            if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-                setError(error.response.data.message);
-                console.error(getError);
-            }
+            setError(error);
+            console.error(getError);
         }
     };
 
+    
     const handleUIUpdate = () => {
         setHandleUpdateUI(!handleUpdateUI);
     }
 
     return (
         <div className="add-product">
+            {/* add product interface*/}
             {
             handleUpdateUI && (
                 <div className="control-details">
@@ -64,6 +64,7 @@ export const AddtoDatabase = () => {
             )
         }
 
+        {/* update product interface*/}
             {
             !handleUpdateUI && (
                 <div className="control-details">
@@ -105,7 +106,9 @@ export const AddtoDatabase = () => {
                         product.productPrice
                     }
                     required={handleUpdateUI}
-                    className="add-product-input"/> 
+                    className="add-product-input"
+                />
+                {/* switch between add and update option */} 
                 {
                    !handleUpdateUI && (
                         <button type="submit" className="add-button-submit">Update product!</button>

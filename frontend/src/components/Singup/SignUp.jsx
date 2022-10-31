@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import './signUp.scss'
 import { useCreateFaoriteListMutation, useSignUpMutation, useCreateCartListMutation } from "../../store/api";
 
+
+//signup user
 const Signup = () => {
 	const [createFavoriteMutationList] = useCreateFaoriteListMutation();
 	const [createCartList] = useCreateCartListMutation();
@@ -16,10 +18,12 @@ const Signup = () => {
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
 
+	//get value from inputs
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
 	};
 
+	//submit data to database
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -29,6 +33,7 @@ const Signup = () => {
 			navigate("/login");
 		} catch (error) {
 			setError(error);
+			console.log(error);
 		}
 	};
 

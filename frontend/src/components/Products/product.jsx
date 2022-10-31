@@ -3,7 +3,6 @@ import { UpdateFavorite } from "../Favorite/updateFavorite";
 import { UpdateCart } from "../Cart/UpdateCart";
 
 export const Product = ({
-    index,
     id,
     productName,
     productPrice,
@@ -11,15 +10,18 @@ export const Product = ({
     productCode,
     hideFromCustomer = false
 }) => {
+
+    //function to delete product from db
     const [deleteProduct] = useDeleteProductsMutation();
     return (
         <div className="product-item">
             {
+                /* add to favorite option show only to customers*/ 
                 !hideFromCustomer ? (
                     <div className ="product-favorite-action">
                         <UpdateFavorite  id={productCode} name={productName} image={'./placeholder.jpg'} price={productPrice}/>
                     </div>
-                ): null
+                ) : null
             }
             
             <img src="./placeholder.jpg" alt={productName} width="300px"/>
@@ -34,7 +36,9 @@ export const Product = ({
                 RON</p>
             </div>
             <div> 
-                
+                {/* hide delete product option for customer, show add to cart option
+                    delete product option will be available only for users with editor/admin role
+                */}
                 {hideFromCustomer ? (
                 <button onClick={
                     () => deleteProduct({id: id})
@@ -48,8 +52,7 @@ export const Product = ({
                     rating={rating}
                 />
                 }
-            </div>
-            {/* <p>{rating}</p> */}
+            </div>            
             
         </div>
         </div>

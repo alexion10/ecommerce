@@ -1,6 +1,6 @@
 import { useCartQuery } from "../../store/api";
 import { MdWarningAmber } from 'react-icons/md';
-import {AiOutlineShoppingCart} from 'react-icons/ai';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import './cartNumber.scss';
 
 export const CartNumber = () =>{
@@ -8,22 +8,19 @@ export const CartNumber = () =>{
     const { data, error, isSuccess } = useCartQuery(userInfo.email);
     return(
         <div>
-            {
-                error && (
+            {/* loader */}
+            {error && (
                     <MdWarningAmber className="cart-num-icon"/>
                     
-                )
-            }
+            )}
+            {/* get total product numbers from user cart list */}
             {isSuccess && (
                 <>
-                <AiOutlineShoppingCart className="cart-num-icon"/>
-                 <span className="badge" id="cart">{(data.totalQuantity > 0) ? data.totalQuantity : null}</span>
-                 </>
+                    <AiOutlineShoppingCart className="cart-num-icon"/>
+                    <span className="badge" id="cart">{(data.totalQuantity > 0) ? data.totalQuantity : null}</span>
+                </>
             )}
             
         </div>
     )
 }
-
-
-{/* <span className="badge" id="cart">{([...data.cartList].length > 0) ? [...data].length : null}</span> */}

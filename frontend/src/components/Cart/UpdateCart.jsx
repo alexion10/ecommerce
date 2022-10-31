@@ -1,10 +1,11 @@
 import { useUpdateCartListMutation } from "../../store/api";
-import {BsFillCartCheckFill} from 'react-icons/bs';
+import { BsFillCartCheckFill } from 'react-icons/bs';
 import './updateCart.scss'
 
 export const UpdateCart = ({productCode, productName, productPrice, image, rating}) => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const userEmail = userInfo.email;
+    // product details and action type
     const productAndAction = {
         product: {
             productCode: productCode,
@@ -18,6 +19,7 @@ export const UpdateCart = ({productCode, productName, productPrice, image, ratin
     const [updateCartList] = useUpdateCartListMutation();
     const handleClick = (e) => {
         e.preventDefault();
+        //update cart product list
         updateCartList({email: userEmail, productAndAction: productAndAction})
     }
     return (
