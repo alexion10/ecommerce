@@ -8,7 +8,7 @@ Make sure you have [Node](https://nodejs.org) installed.
 
 ## Client side
 
-# Tech stack
+### Tech stack
 * [React](https://facebook.github.io/react/)
 * [Redux](http://redux.js.org/)
 * [Babel](http://babeljs.io/)
@@ -17,7 +17,7 @@ Make sure you have [Node](https://nodejs.org) installed.
 
 ## Server side
 
-# Tech stack
+### Tech stack
 * [bcrypt](https://www.npmjs.com/package/bcrypt)
 * [cors](https://www.npmjs.com/package/cors)
 * [dotenv](https://www.npmjs.com/package/dotenv)
@@ -29,8 +29,8 @@ Make sure you have [Node](https://nodejs.org) installed.
 * [nodemon](https://www.npmjs.com/package/nodemon)
 
 ## Database
-Database is based on * [MongoDb](https://www.mongodb.com/atlas/database). 
-At the website above you can create and account an try the free trial. 
+Database is based on [MongoDb](https://www.mongodb.com/atlas/database). 
+Click on the website and you can create an account and try the free trial. 
 
 ## Notes
 The project is not completly finished. I will add more features with time... :)
