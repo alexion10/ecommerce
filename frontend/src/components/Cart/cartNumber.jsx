@@ -4,8 +4,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import './cartNumber.scss';
 
 export const CartNumber = () =>{
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const { data, error, isSuccess } = useCartQuery(userInfo.email);
+    const { data, error, isSuccess } = useCartQuery();
     return(
         <div>
             {/* loader */}

@@ -4,8 +4,7 @@ import { Navbar } from "../Main/Main";
 
 
 const FavoriteDashboard = () => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const {data, error, isSuccess, isLoading} = useFavoritesQuery(userInfo.email);
+    const {data, error, isSuccess, isLoading} = useFavoritesQuery();
     
     return (
         <>

@@ -4,12 +4,13 @@ import CustomerDashboard from "../Dashboard/CustomerDashboard";
 import {FavoriteNumber} from "../Favorite/favoriteNumber";
 import { CartNumber } from "../Cart/cartNumber";
 import "./main.scss";
+import { useSelector } from "react-redux";
 
 export const Navbar = () => {
-    //get user info
-    const userRole = JSON.parse(localStorage.getItem('userInfo'));
+    //get user role
+    const userRole = useSelector(state=> state.userInfo.role)
     //user role
-    const generateUIByRole = ((userRole.role === 'editor') || (userRole.role === 'admin')) ? true : false;
+    const generateUIByRole = ((userRole === 'editor') || (userRole === 'admin')) ? true : false;
 
     //remove information user from local storage
     const handleLogout = () => {
@@ -45,8 +46,8 @@ export const Navbar = () => {
 }
 
 const Main = () => {
-    const userRole = JSON.parse(localStorage.getItem('userInfo'));
-    const generateUIByRole = ((userRole.role === 'editor') || (userRole.role === 'admin')) ? true : false;
+    const userRole = useSelector(state=> state.userInfo.role)
+    const generateUIByRole = ((userRole === 'editor') || (userRole === 'admin')) ? true : false;
     return (
         <div className="main_container">
             <Navbar/> 

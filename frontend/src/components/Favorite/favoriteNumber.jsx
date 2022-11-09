@@ -5,10 +5,8 @@ import './favoriteNumber.scss'
 
 //get number of products in the favorite list
 export const FavoriteNumber = () =>{
-    // get userInfo
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     //get user favorite list
-    const { data, error, isSuccess } = useFavoritesQuery(userInfo.email);
+    const { data, error, isSuccess } = useFavoritesQuery();
     return(
         <div>
             {error && (

@@ -1,10 +1,10 @@
 const router = require("express").Router()
 const { Favorite } = require("../models/favorites");
+const { authenticateToken } = require("./middleware");
 
-
-router.get('/:email', async (req, res)=>{
+router.get('/', authenticateToken, async (req, res)=>{
     try{
-        const favorite = await Favorite.findOne({email: req.params.email});
+        const favorite = await Favorite.findOne({email: req.user.email});
         return res.status(200).send(favorite.favoriteList)
     }catch(error){
         res.status(500).send({ message: "Internal Server Error" });
@@ -24,14 +24,14 @@ router.post('/', async (req, res)=>{
         }
 })
 
-router.patch('/:email', async (req, res)=>{
+router.patch('/', authenticateToken, async (req, res)=>{
     try{
-        const favorite = await Favorite.findOne({email: req.params.email})
+        const favorite = await Favorite.findOne({email: req.user.email})
         if(favorite){
             const copyList = [...favorite.favoriteList];
             const exists = copyList.find(item => item.id === req.body.id)
             const sendNewList = (exists) ? copyList.filter(product => product.id !== req.body.id) : [...copyList, req.body];
-            await Favorite.updateOne({email: req.params.email}, {$set: {favoriteList: sendNewList}})
+            await Favorite.updateOne({email: req.user.email}, {$set: {favoriteList: sendNewList}})
             return res.status(200).send('Favorite list updated!');
         }
         return res.status(404).send({ message: "Can't find favorite list for email provided!" });

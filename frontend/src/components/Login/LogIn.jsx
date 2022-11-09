@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useLogInMutation } from "../../store/api";
+import axios from "axios";
 import "./login.scss";
 
 const Login = () => {
 	const [logInData, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
-	const [logIn]  = useLogInMutation();
 
 	//get input values
 	const handleChange = ({ currentTarget: input }) => {
@@ -16,19 +15,20 @@ const Login = () => {
 	//submit data to database
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		try {
-			//get user data from db
-			const userData = await logIn(logInData);
-			//save token and userInfo to localStorage
-			localStorage.setItem("token", userData.data.token);
-			localStorage.setItem('userInfo', JSON.stringify(userData.data.infoUser))
-			
-			//reload to main dashboard
-			window.location = '/' 
+			const url = "http://localhost:8080/api/auth";
+			const { data: res } = await axios.post(url, logInData);
+			localStorage.setItem("token", res.token);
+			window.location = "/";
 		} catch (error) {
-			//set error and show error to console
-			setError(error);			
-			console.log(error)
+			if (
+				error.response &&
+				error.response.status >= 400 &&
+				error.response.status <= 500
+			) {
+				setError(error.response.data.message);
+			}
 		}
 	};
 

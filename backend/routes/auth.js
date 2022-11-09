@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
             email: await user.email,
             role: await user.role
         }
-		res.status(200).send({ token: token, message: "logged in successfully", infoUser: infoUser});
+		res.status(200).send({ token: token, message: "logged in successfully"});
 	} catch (error) {
 		res.status(500).send({ message: "Internal Server Error" });
 	}
@@ -40,5 +40,7 @@ const validate = (data) => {
 	});
 	return schema.validate(data);
 };
+
+
 
 module.exports = router;

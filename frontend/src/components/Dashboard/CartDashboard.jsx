@@ -6,12 +6,11 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import '../Cart/cartList.scss';
 
 const CartDashboard = () => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const {data, error, isSuccess, isLoading} = useCartQuery(userInfo.email);
+    const {data, error, isSuccess, isLoading} = useCartQuery();
     //update user cart list
     const [updateCartList] = useUpdateCartListMutation();
     //product details and type of action "add/remove"
-    const updateCart = (email,productCode, productName, productPrice, image, rating, action) => {
+    const updateCart = (productCode, productName, productPrice, image, rating, action) => {
         const obj = {
             product: {
                 productCode: productCode,
@@ -22,7 +21,7 @@ const CartDashboard = () => {
             },
             action: action
         }
-        return {email: email, productAndAction: obj};
+        return {productAndAction: obj};
     }
 
     return (
@@ -59,10 +58,10 @@ const CartDashboard = () => {
                                         <p>Quantity:</p>
                                         <div className="cart-quantity-control">
                                             {/* Remove item*/}
-                                            <AiOutlineArrowLeft onClick={()=>{updateCartList(updateCart(userInfo.email, item.productCode, item.productName, item.productPrice, item.image, item.rating, 'remove'))}}/>
+                                            <AiOutlineArrowLeft onClick={()=>{updateCartList(updateCart(item.productCode, item.productName, item.productPrice, item.image, item.rating, 'remove'))}}/>
                                                 {item.quantity}
                                             {/* Add item*/}
-                                            <AiOutlineArrowRight onClick={()=>{updateCartList(updateCart(userInfo.email, item.productCode, item.productName, item.productPrice, item.image, item.rating, 'add'))}}/>    
+                                            <AiOutlineArrowRight onClick={()=>{updateCartList(updateCart(item.productCode, item.productName, item.productPrice, item.image, item.rating, 'add'))}}/>    
                                         </div>
                                     </div>
                                     <div className="cart-favorite">

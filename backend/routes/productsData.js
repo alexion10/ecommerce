@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const { AddProducts } = require("../models/products");
+const { authenticateToken } = require("./middleware");
 
 
-router.post("/", async (req, res) => {
+router.post("/", authenticateToken, async (req, res) => {
 	try {
         //check if product exist in database
 		const product = await AddProducts.findOne({ productCode: req.body.productCode });
@@ -22,21 +23,22 @@ router.post("/", async (req, res) => {
 });
 
 //delete product
-router.delete('/:id', async (req, res)=> {
+router.delete('/:id', authenticateToken, async (req, res)=> {
     try{
         //delete item
         await AddProducts.remove({_id: req.params.id});
         //return msg if product was deleted
-        res.status(201).send({message: 'Product deleted successfully'});
+        res.status(200).send({message: 'Product deleted successfully'});
     }catch(error){
         res.status(500).send({ message: "Internal Server Error" });
     }
 })
 
-router.patch('/:productCode', async (req,res)=>{
+//update product info
+router.patch('/:productCode', authenticateToken, async (req,res)=>{
     try{
         await AddProducts.updateOne({productCode: req.params.productCode}, {$set:req.body})
-        res.send({message: 'Product Updated'})
+        res.status(200).send({message: 'Product Updated'})
     }catch(error){
         res.status(500).send({ message: "Internal Server Error" });
     }
@@ -44,7 +46,7 @@ router.patch('/:productCode', async (req,res)=>{
 })
 
 // get all the products 
-router.get('/', async (req, res) =>{
+router.get('/', authenticateToken, async (req, res) =>{
     try{
         //get all products from db
         const products = await AddProducts.find();

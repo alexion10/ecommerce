@@ -3,8 +3,6 @@ import { BsFillCartCheckFill } from 'react-icons/bs';
 import './updateCart.scss'
 
 export const UpdateCart = ({productCode, productName, productPrice, image, rating}) => {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const userEmail = userInfo.email;
     // product details and action type
     const productAndAction = {
         product: {
@@ -20,7 +18,7 @@ export const UpdateCart = ({productCode, productName, productPrice, image, ratin
     const handleClick = (e) => {
         e.preventDefault();
         //update cart product list
-        updateCartList({email: userEmail, productAndAction: productAndAction})
+        updateCartList({productAndAction: productAndAction})
     }
     return (
         <>

@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import './signUp.scss'
-import { useCreateFaoriteListMutation, useSignUpMutation, useCreateCartListMutation } from "../../store/api";
+import { useCreateFaoriteListMutation, useCreateCartListMutation } from "../../store/api";
 
 
 //signup user
 const Signup = () => {
 	const [createFavoriteMutationList] = useCreateFaoriteListMutation();
 	const [createCartList] = useCreateCartListMutation();
-	const [signUp] = useSignUpMutation();
 	const [data, setData] = useState({
 		firstName: "",
 		lastName: "",
@@ -27,13 +27,19 @@ const Signup = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			signUp(data);
+			const url = "http://localhost:8080/api/users";
+			await axios.post(url, data);
 			createFavoriteMutationList({email: data.email});
 			createCartList({email: data.email})
 			navigate("/login");
 		} catch (error) {
-			setError(error);
-			console.log(error);
+			if (
+				error.response &&
+				error.response.status >= 400 &&
+				error.response.status <= 500
+			) {
+				setError(error.response.data.message);
+			}
 		}
 	};
 

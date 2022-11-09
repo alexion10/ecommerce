@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useUsersQuery } from "../../store/api";
 import { Product } from "./product";
 
@@ -39,12 +40,11 @@ export const ProductList = () => {
     const [sortOrder, setSortOrder] = useState('desc');
     const [sortByCategory, setSortCategory] = useState('date');
     const [productType, setProductType] = useState('all');
-    
-    //get userRole from localStorage
-    const userRole = JSON.parse(localStorage.getItem('userInfo'))
+    //get userRole 
+    const userRole = useSelector(state => state.userInfo.role)
     
     //show only for editor and admin users
-    const hideFromCustomer = ((userRole.role === 'editor') || (userRole.role === 'admin')) ? true : false;
+    const hideFromCustomer = ((userRole === 'editor') || (userRole === 'admin')) ? true : false;
     const {
         data,
         error,

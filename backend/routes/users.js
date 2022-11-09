@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { User, validate } = require("../models/user");
 const bcrypt = require("bcrypt");
+const { authenticateToken } = require("./middleware");
 
 router.post("/", async (req, res) => {
 	try {
@@ -23,5 +24,14 @@ router.post("/", async (req, res) => {
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
+
+router.get('/', authenticateToken, async (req, res) => {
+	try{
+		const userRole = req.user.role;
+		return res.status(200).send({userRole: userRole})
+	}catch(err){
+		return res.status(500).send("Internal server error")
+	}
+})
 
 module.exports = router;

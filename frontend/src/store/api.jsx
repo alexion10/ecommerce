@@ -3,7 +3,14 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 export const usersApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8080/api'
+    baseUrl: 'http://localhost:8080/api',
+    prepareHeaders: (headers) =>{
+      const token = localStorage.getItem('token');
+      if(token){
+        headers.set('authorization', `Bearer ${token}`)
+      }
+      return headers
+    }
   }),
   tagTypes: ['Products', 'Favorite', 'Cart'],
   endpoints: (builder) => ({
@@ -35,29 +42,18 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ['Products']
     }),
-    logIn: builder.mutation({
-      query: (user) => ({
-          url:'/auth',
-          method: 'POST',
-          body: user
-      }),
-    }),
-    signUp: builder.mutation({
-      query: (user) => ({
-          url:'/users',
-          method: 'POST',
-          body: user
-      }),
-    }),
+    userRole: builder.query({
+      query: (email) => `/users`,
+    }),   
     updateUserRole: builder.mutation({
-      query: ({ email, role }) => ({
-          url:`/role/${email}`,
+      query: ({ role }) => ({
+          url:`/role`,
           method: 'PATCH',
           body: role
       })
     }),
     favorites: builder.query({
-      query: (email) => `/favorite/${email}`,
+      query: () => `/favorite`,
       providesTags: ['Favorites']
     }),    
     createFaoriteList: builder.mutation({
@@ -68,15 +64,15 @@ export const usersApi = createApi({
       }),
     }),
     updateFavoriteList: builder.mutation({
-      query: ({email, product}) => ({
-          url:`/favorite/${email}`,
+      query: ({product}) => ({
+          url:`/favorite`,
           method: 'PATCH',
           body: product
       }),
       invalidatesTags: ['Favorites']
     }),
     cart: builder.query({
-      query: (email) => `/cart/${email}`,
+      query: () => `/cart`,
       providesTags: ['Cart']
     }),
     createCartList: builder.mutation({
@@ -87,8 +83,8 @@ export const usersApi = createApi({
       }),
     }),
     updateCartList: builder.mutation({
-      query: ({email, productAndAction}) => ({
-          url:`/cart/${email}`,
+      query: ({productAndAction}) => ({
+          url:`/cart`,
           method: 'PATCH',
           body: productAndAction
       }),
@@ -102,8 +98,7 @@ export const {
   useAddProductsMutation,
   useDeleteProductsMutation, 
   useUpdateProductsMutation, 
-  useLogInMutation, 
-  useSignUpMutation,
+  useUserRoleQuery,
   useUpdateUserRoleMutation,
   useFavoritesQuery,
   useCreateFaoriteListMutation,

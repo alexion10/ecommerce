@@ -1,10 +1,10 @@
 const router = require("express").Router()
 const { Cart } = require("../models/cart");
+const { authenticateToken } = require("./middleware");
 
-
-router.get('/:email', async (req, res)=>{
+router.get('/', authenticateToken, async (req, res)=>{
     try{
-        const cart = await Cart.findOne({email: req.params.email});
+        const cart = await Cart.findOne({email: req.user.email});
         return res.status(200).send({cartList: cart.cartList, totalPrice: cart.totalPrice, totalQuantity: cart.totalQuantity})
     }catch(error){
         res.status(500).send({ message: "Internal Server Error" });
@@ -24,9 +24,9 @@ router.post('/', async (req, res)=>{
     }
 })
 
-router.patch('/:email', async (req, res)=>{
+router.patch('/', authenticateToken, async (req, res)=>{
     try{
-        const cart = await Cart.findOne({email: req.params.email})
+        const cart = await Cart.findOne({email: req.user.email})
         const product = req.body.product;
         const action = req.body.action;
         let totalPrice = 0;
@@ -42,7 +42,7 @@ router.patch('/:email', async (req, res)=>{
                     totalPrice = totalPrice + price;
                     totalQuantity = totalQuantity + item.quantity;
                 })
-                await Cart.updateOne({email: req.params.email}, {$set: {cartList: newList, totalPrice: totalPrice, totalQuantity: totalQuantity}})
+                await Cart.updateOne({email: req.user.email}, {$set: {cartList: newList, totalPrice: totalPrice, totalQuantity: totalQuantity}})
                 return res.status(200).send({message: 'Product added to cart!'})
             }
 
@@ -62,11 +62,11 @@ router.patch('/:email', async (req, res)=>{
                     totalQuantity = totalQuantity + item.quantity;
                 })
                 
-                await Cart.updateOne({email: req.params.email}, {$set: {cartList: newList, totalPrice: totalPrice, totalQuantity: totalQuantity }})
+                await Cart.updateOne({email: req.user.email}, {$set: {cartList: newList, totalPrice: totalPrice, totalQuantity: totalQuantity }})
                 return res.status(200).send({message: 'One quantity removed from cart!'})
             }
         }
-        return res.status(404).send({ message: "Can't find favorite list for email provided!" });
+        return res.status(404).send({ message: "Can't find cart list for this user!" });
     }catch(error){
         res.status(500).send({ message: "Internal Server Error" });
     }
