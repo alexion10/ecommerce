@@ -33,4 +33,4 @@ Database is based on [MongoDb](https://www.mongodb.com/atlas/database).
 Click on the website and you can create an account and try the free trial. 
 
 ## Notes
-The project is not completly finished. I will add more features with time... :)
+The project is not completly finished, still work in progress... :)
